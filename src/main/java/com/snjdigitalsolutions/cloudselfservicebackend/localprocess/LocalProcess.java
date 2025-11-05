@@ -1,8 +1,12 @@
 package com.snjdigitalsolutions.cloudselfservicebackend.localprocess;
 
-public interface TerrformProcess {
+public interface LocalProcess {
 
-    void executeProcess();
+    void performProcess();
+
+    void startProcess(ProcessBuilder builder);
+
+    void defineAndStartProcess();
 
     String getResponse();
 
