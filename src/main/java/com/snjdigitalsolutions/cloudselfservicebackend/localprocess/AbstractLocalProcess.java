@@ -4,13 +4,20 @@ import com.snjdigitalsolutions.cloudselfservicebackend.processgobbler.GobblerUti
 import lombok.NoArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
+
+import java.io.File;
 
 @NoArgsConstructor
 public abstract class AbstractLocalProcess implements LocalProcess {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AbstractLocalProcess.class);
+    @Value("${cdktf.project.directory}")
+    private String projectDirectory;
+    @Value("${cdktf.use.specified.directory}")
+    private boolean useSpecifiedDirectory;
     private ApplicationContext applicationContext = null;
     protected GobblerUtility gobblerUtility;
     protected int exitCode;
@@ -29,6 +36,9 @@ public abstract class AbstractLocalProcess implements LocalProcess {
     @Override
     public void startProcess(ProcessBuilder builder){
         try {
+            if (useSpecifiedDirectory) {
+                builder.directory(new File(projectDirectory));
+            }
             Process process = builder.start();
             gobblerUtility = applicationContext.getBean(GobblerUtility.class);
             gobblerUtility.startGobbler(process);
