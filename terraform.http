@@ -3,3 +3,14 @@ GET http://localhost:8081/terraformversion
 
 ### GET terraform CDKTF version
 GET http://localhost:8081/terraformcdktfversion
+
+### Port 8082
+
+### GET terraform version
+GET http://192.168.74.25:8082/terraformversion
+
+### GET terraform CDKTF version
+GET http://192.168.74.25:8082/terraformcdktfversion
+
+### GET perform cdktf diff
+GET http://192.168.74.25:8082/terraformcdktfdiff
